@@ -1,0 +1,33 @@
+def is_sheeptalk(string):
+    state = 0  # 0:q0, 1:q1, 2:q2, 3:q3, 4:q4 (accept)
+    for char in string:
+        if state == 0:
+            if char == 'b':
+                state = 1
+            else:
+                return False
+        elif state == 1:
+            if char == 'a':
+                state = 2
+            else:
+                return False
+        elif state == 2:
+            if char == 'a':
+                state = 3
+            else:
+                return False
+        elif state == 3:
+            if char == 'a':
+                state = 3  # loop
+            elif char == '!':
+                state = 4
+            else:
+                return False
+        elif state == 4:
+            return False  # extra characters after '!'
+    return state == 4
+# Tests
+print(is_sheeptalk("baa!"))    # True
+print(is_sheeptalk("baaa!"))   # True
+print(is_sheeptalk("ba!"))     # False
+print(is_sheeptalk("baaa"))    # False. provide it an image for code using in ppt
